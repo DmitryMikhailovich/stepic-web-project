@@ -30,5 +30,5 @@ def get_question(request, question_id):
     question = get_object_or_404(Question, id=question_id)
     return render(request, 'question_details.html', {
         'question': question,
-        'answers': question.question_answer.all()
+        'answers': question.answer_set.all()
     })
