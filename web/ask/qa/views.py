@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.http import require_GET
+from django.contrib.auth.models import User
 from .shortcuts import render_question_list
 from .models import Question
 from .forms import AskForm, AnswerForm
@@ -38,7 +39,7 @@ def get_question(request, question_id):
     else:
         form = AnswerForm()
         form.set_question(question)
-        form._user = request.user
+        form._user = User.objects.get(id=1)
     return render(request, 'question_details.html', {
         'question': question,
         'answers': question.answer_set.all(),
@@ -49,7 +50,7 @@ def get_question(request, question_id):
 def ask_question(request):
     if request.method == 'POST':
         form = AskForm(request.POST)
-        form._user = request.user
+        form._user = User.objects.get(id=1)
         if form.is_valid():
             question = form.save()
             url = question.get_url()
