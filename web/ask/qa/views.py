@@ -32,7 +32,7 @@ def get_question(request, question_id):
     if request.method == 'POST':
         form = AnswerForm(request.POST)
         form.set_question(question)
-        form._user = request.user
+        form._user = User.objects.get(id=1)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(request.path)
@@ -57,7 +57,7 @@ def ask_question(request):
             return HttpResponseRedirect(url)
     else:
         form = AskForm()
-        form._user = request.user
+        form._user = User.objects.get(id=1)
     return render(request, 'question_ask.html', {
         'form': form,
     })
