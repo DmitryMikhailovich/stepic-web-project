@@ -7,7 +7,7 @@ class AskForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea)
 
     def clean(self):
-        return super().clean()
+        return self.cleaned_data
 
     def save(self):
         self.cleaned_data['author_id'] = 1 #zalepa
@@ -26,7 +26,7 @@ class AnswerForm(forms.Form):
         self.fields['question'].queryset = queryset
 
     def clean(self):
-        return super().clean()
+        return self.cleaned_data
 
     def save(self):
         self.cleaned_data['author_id'] = 1  # zalepa
