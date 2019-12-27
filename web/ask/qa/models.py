@@ -26,6 +26,9 @@ class Question(models.Model):
     def __unicode__(self):
         return self.title
 
+    def __str__(self):
+        return self.__unicode__()
+
 
 class Answer(models.Model):
     text = models.TextField()
@@ -35,3 +38,6 @@ class Answer(models.Model):
 
     def __unicode__(self):
         return self.text
+
+    def __str__(self):
+        return self.__unicode__()
