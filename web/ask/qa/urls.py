@@ -7,7 +7,7 @@ urlpatterns = [
     url(r'^$', views.get_new),
     url(r'^login/?$', views.test),
     url(r'^signup/?$', views.test),
-    url(r'^ask/?$', views.test),
+    url(r'^ask/?$', views.ask_question, name='ask'),
     url(r'^popular/?$', views.get_popular, name='popular'),
     url(r'^new/?$', views.get_new, name='new'),
 ]

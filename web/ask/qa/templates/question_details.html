@@ -7,6 +7,23 @@
 <body>
     <h1>{{ question.title }}</h1>
     <p>{{ question.text }}</p><br/>
+    <form method="post" action="{{ question.get_url }}">
+        {% csrf_token %}
+        <h3>New answer</h3>
+        {% for e in form.non_field_errors %}
+        <div>{{ e }}</div>
+        {% endfor %}
+        <fieldset>
+            <div>
+                <label>{{ form.text.label }}</label>
+                <div>{{ form.text }}</div>
+            </div>
+            <div hidden="hidden">
+                {{ form.question }}
+            </div>
+        </fieldset>
+        <button type="submit">Save</button>
+    </form>
     <h2>Answers</h2>
     {% for a in answers %}
         <p>{{ a.author }}</p>
