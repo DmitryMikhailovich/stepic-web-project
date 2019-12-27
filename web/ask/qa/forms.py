@@ -18,9 +18,6 @@ class AnswerForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea)
     question = forms.ModelChoiceField(queryset=None, empty_label=None)
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
     def set_question(self, question):
         queryset = Question.objects.filter(id=question.id)
         self.fields['question'].queryset = queryset
