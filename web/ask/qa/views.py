@@ -31,12 +31,14 @@ def get_question(request, question_id):
     if request.method == 'POST':
         form = AnswerForm(request.POST)
         form.set_question(question)
+        form._user = request.user
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(request.path)
     else:
         form = AnswerForm()
         form.set_question(question)
+        form._user = request.user
     return render(request, 'question_details.html', {
         'question': question,
         'answers': question.answer_set.all(),
@@ -47,12 +49,14 @@ def get_question(request, question_id):
 def ask_question(request):
     if request.method == 'POST':
         form = AskForm(request.POST)
+        form._user = request.user
         if form.is_valid():
             question = form.save()
             url = question.get_url()
             return HttpResponseRedirect(url)
     else:
         form = AskForm()
+        form._user = request.user
     return render(request, 'question_ask.html', {
         'form': form,
     })
