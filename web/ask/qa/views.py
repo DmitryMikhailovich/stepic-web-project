@@ -29,12 +29,14 @@ def get_popular(request):
 def get_question(request, question_id):
     question = get_object_or_404(Question, id=question_id)
     if request.method == 'POST':
-        form = AnswerForm(question, request.POST)
+        form = AnswerForm(request.POST)
+        form.set_question(question)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(request.path)
     else:
-        form = AnswerForm(question)
+        form = AnswerForm()
+        form.set_question(question)
     return render(request, 'question_details.html', {
         'question': question,
         'answers': question.answer_set.all(),
