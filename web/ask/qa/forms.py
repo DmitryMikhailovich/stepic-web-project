@@ -7,7 +7,7 @@ class AskForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea)
 
     def clean(self):
-        return self.cleaned_data
+        cleaned_data = super().clean()
 
     def save(self):
         self.cleaned_data['author'] = self._user
@@ -23,7 +23,7 @@ class AnswerForm(forms.Form):
         self.fields['question'].queryset = queryset
 
     def clean(self):
-        return self.cleaned_data
+        cleaned_data = super().clean()
 
     def save(self):
         self.cleaned_data['author'] = self._user
