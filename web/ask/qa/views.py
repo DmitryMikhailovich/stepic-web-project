@@ -34,7 +34,7 @@ def login_user(request):
     if request.method == 'POST':
         form = UserLoginForm(request.POST)
         if form.is_valid():
-            user = authenticate(request, **form.clean())
+            user = authenticate(**form.clean())
             login(request, user)
             return HttpResponseRedirect('/')
     else:
@@ -45,20 +45,20 @@ def login_user(request):
 
 
 @require_GET
-@login_required(login_url='/login/')
+@login_required
 def get_new(request):
     new_questions = Question.objects.new()
     return render_question_list(request, new_questions)
 
 
 @require_GET
-@login_required(login_url='/login/')
+@login_required
 def get_popular(request):
     popular_questions = Question.objects.popular()
     return render_question_list(request, popular_questions)
 
 
-@login_required(login_url='/login/')
+@login_required
 def get_question(request, question_id):
     question = get_object_or_404(Question, id=question_id)
     if request.method == 'POST':
@@ -79,7 +79,7 @@ def get_question(request, question_id):
     })
 
 
-@login_required(login_url='/login/')
+@login_required
 def ask_question(request):
     if request.method == 'POST':
         form = AskForm(request.POST)
